@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Business Card</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --accent-green: #2e8b57;
+            --accent-blue:  #2980b9;
+            --text-dark:    #1a252f;
+            --bg-page:      #f0f2f5;
+            --bg-card:      #ffffff;
+            --bg-hero:      #1a1a1a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-page);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        .profile-page {
+            width: 100%;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-bottom: 28px;
+        }
+
+        /* ── Hero ─────────────────────────────────── */
+        .hero {
+            position: relative;
+            background-color: var(--bg-hero);
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            overflow: hidden;
+        }
+
+        .hero-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: url('../media/background/pattern.svg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.18;
+        }
+
+        .hero-photo {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center top;
+        }
+
+        .hero-photo-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 7rem;
+            color: rgba(255,255,255,0.12);
+        }
+
+        .hero-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.15) 55%, transparent 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px 20px 20px;
+            color: #fff;
+        }
+
+        .hero-name {
+            font-size: 1.75rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .hero-title {
+            font-size: 0.88rem;
+            font-weight: 300;
+            opacity: 0.8;
+            margin-bottom: 2px;
+        }
+
+        .hero-org {
+            font-size: 0.82rem;
+            font-weight: 600;
+            opacity: 0.6;
+            margin-bottom: 18px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .action-btn {
+            width: 46px;
+            height: 46px;
+            background: rgba(255,255,255,0.14);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255,255,255,0.22);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .action-btn:hover {
+            background: rgba(255,255,255,0.28);
+        }
+
+        /* ── Section Cards ───────────────────────── */
+        .section-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 0 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        .section-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .section-body {
+            font-size: 0.85rem;
+            color: #777;
+            line-height: 1.6;
+        }
+
+        /* ── Contact Card ────────────────────────── */
+        .contact-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .contact-header-icon {
+            width: 46px;
+            height: 46px;
+            background: var(--text-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-header-label {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .contact-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .contact-row-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
+
+        .contact-row a {
+            font-size: 0.82rem;
+            color: #666;
+            text-decoration: none;
+        }
+
+        .contact-row a:hover {
+            color: var(--accent-blue);
+        }
+
+        /* ── Social Icons ────────────────────────── */
+        .social-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            width: 46px;
+            height: 46px;
+            background: var(--text-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .social-links a:hover {
+            opacity: 0.75;
+        }
+
+        /* ── QR Code ─────────────────────────────── */
+        .qr-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 6px;
+        }
+
+        .qr-container img {
+            width: 150px;
+            height: 150px;
+            border-radius: 8px;
+            border: 5px solid var(--bg-page);
+        }
+
+        /* ── Bento Cards Wrapper ────────────────── */
+        .bento-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* ── Desktop Bento Layout ────────────────── */
+        @media (min-width: 768px) {
+            body {
+                align-items: flex-start;
+                padding: 24px;
+            }
+
+            .profile-page {
+                max-width: 960px;
+                display: grid;
+                grid-template-columns: 2fr 3fr;
+                gap: 16px;
+                align-items: stretch;
+                padding: 0;
+            }
+
+            .hero {
+                border-radius: 16px;
+                min-height: 500px;
+            }
+
+            .bento-cards {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+                align-content: start;
+            }
+
+            .section-card  { margin: 0; }
+            #about-section { grid-column: 1 / -1; }
+            .card-contact  { grid-column: 1 / -1; }
+            .card-social   { grid-column: 1; }
+            .card-qr       { grid-column: 2; }
+
+            .vcard-btn {
+                grid-column: 1 / -1;
+                margin: 0;
+            }
+        }
+
+        /* ── vCard Button ────────────────────────── */
+        .vcard-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 4px 12px 0;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, var(--accent-green) 0%, var(--accent-blue) 100%);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 6px 15px rgba(46,139,87,0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .vcard-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(46,139,87,0.4);
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-page">
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-pattern"></div>
+        <div class="hero-photo" id="c-photo-bg"></div>
+        <div class="hero-photo-placeholder" id="c-photo-placeholder">
+            <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="hero-gradient"></div>
+        <div class="hero-content">
+            <div class="hero-name" id="c-name"></div>
+            <div class="hero-title" id="c-title"></div>
+            <div class="hero-org" id="c-org"></div>
+            <div class="action-buttons">
+                <a id="c-phone-btn" href="" class="action-btn" title="Call"><i class="fa-solid fa-phone"></i></a>
+                <a id="c-email-btn" href="" class="action-btn" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                <a id="c-whatsapp-btn" href="" target="_blank" class="action-btn" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <div class="bento-cards">
+
+        <!-- About (hidden if CONTACT.about is empty) -->
+        <div class="section-card" id="about-section">
+            <div class="section-title">About</div>
+            <div class="section-body" id="c-about"></div>
+        </div>
+
+        <!-- Contact -->
+        <div class="section-card card-contact">
+            <div class="contact-header">
+                <div class="contact-header-icon"><i class="fa-solid fa-address-card"></i></div>
+                <div class="contact-header-label">Contact</div>
+            </div>
+            <div class="contact-rows">
+                <div class="contact-row">
+                    <div class="contact-row-label">Phone</div>
+                    <div><a id="c-phone" href=""></a></div>
+                </div>
+                <div class="contact-row">
+                    <div class="contact-row-label">Email</div>
+                    <div><a id="c-email" href=""></a></div>
+                </div>
+                <div class="contact-row">
+                    <div class="contact-row-label">Website</div>
+                    <div><a id="c-website" href="" target="_blank"></a></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social -->
+        <div class="section-card card-social">
+            <div class="section-title" style="margin-bottom:14px;">Social</div>
+            <div class="social-links">
+                <a id="c-whatsapp" href="" target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                <a id="c-linkedin" href="" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a id="c-twitter" href="" title="Twitter / X"><i class="fa-brands fa-twitter"></i></a>
+                <a id="c-instagram" href="" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+
+        <!-- QR Code -->
+        <div class="section-card card-qr">
+            <div class="section-title" style="margin-bottom:10px;text-align:center;">Scan to Visit</div>
+            <div class="qr-container">
+                <img id="c-qr" src="" alt="QR Code">
+            </div>
+        </div>
+
+        <!-- Add to Contacts -->
+        <a href="#" class="vcard-btn" id="vcard-btn" download="contact.vcf">
+            <i class="fa-solid fa-user-plus"></i> Add to Contacts
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // CONTACT DATA — edit only this block for each card page
+    const CONTACT = {
+        name:      'Admin Mamtj6',
+        org:       'Masjid Al-Mukhlisin, Taman Jaya 6 (MAMTJ6).',
+        title:     'Admin',
+        about:     '',           // short bio / description; leave empty to hide section
+        photo:     'https://media.istockphoto.com/id/894315548/photo/portrait-of-gloomy-young-man-speaking-on-phone.jpg?s=2048x2048&w=is&k=20&c=B2E52rL4JsWxe77Dyt7LnvgeQPwKzjq5HlNNKufPs3Q=',           // path or URL to profile photo; leave empty for placeholder
+        phone:     '+601156828198',
+        email:     'admin@mamtj6.com',
+        website:   'https://mamtj6.com',
+        linkedin:  '#',
+        twitter:   '#',
+        instagram: '#',
+    };
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    // Page title
+    document.title = CONTACT.name;
+
+    // Hero
+    document.getElementById('c-name').textContent  = CONTACT.name;
+    document.getElementById('c-title').textContent = CONTACT.title;
+    document.getElementById('c-org').textContent   = CONTACT.org;
+
+    if (CONTACT.photo) {
+        document.getElementById('c-photo-bg').style.backgroundImage = `url('${CONTACT.photo}')`;
+        document.getElementById('c-photo-placeholder').style.display = 'none';
+    }
+
+    // Action buttons
+    document.getElementById('c-phone-btn').href    = 'tel:' + CONTACT.phone;
+    document.getElementById('c-email-btn').href    = 'mailto:' + CONTACT.email;
+    document.getElementById('c-whatsapp-btn').href = 'https://wa.me/' + CONTACT.phone.replace(/^\+/, '');
+
+    // About section
+    if (CONTACT.about) {
+        document.getElementById('c-about').textContent = CONTACT.about;
+    } else {
+        document.getElementById('about-section').style.display = 'none';
+    }
+
+    // Contact rows
+    const phoneEl = document.getElementById('c-phone');
+    phoneEl.href = 'tel:' + CONTACT.phone;
+    phoneEl.textContent = CONTACT.phone;
+
+    const emailEl = document.getElementById('c-email');
+    emailEl.href = 'mailto:' + CONTACT.email;
+    emailEl.textContent = CONTACT.email;
+
+    const websiteEl = document.getElementById('c-website');
+    websiteEl.href = CONTACT.website;
+    websiteEl.textContent = CONTACT.website.replace(/^https?:\/\//, '');
+
+    // QR code
+    document.getElementById('c-qr').src =
+        'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(CONTACT.website);
+
+    // Social icons
+    document.getElementById('c-whatsapp').href  = 'https://wa.me/' + CONTACT.phone.replace(/^\+/, '');
+    document.getElementById('c-linkedin').href  = CONTACT.linkedin;
+    document.getElementById('c-twitter').href   = CONTACT.twitter;
+    document.getElementById('c-instagram').href = CONTACT.instagram;
+
+    // vCard download
+    const vcardBlob = new Blob([[
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        'FN:'                  + CONTACT.name,
+        'ORG:'                 + CONTACT.org,
+        'TITLE:'               + CONTACT.title,
+        'TEL;TYPE=WORK,VOICE:' + CONTACT.phone,
+        'EMAIL;TYPE=WORK:'     + CONTACT.email,
+        'URL:'                 + CONTACT.website,
+        'END:VCARD',
+    ].join('\r\n')], { type: 'text/vcard' });
+    document.getElementById('vcard-btn').href = URL.createObjectURL(vcardBlob);
+</script>
+</body>
+</html>
