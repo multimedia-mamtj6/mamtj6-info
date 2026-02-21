@@ -1,1 +1,260 @@
-this is index page
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAMTJ6</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --accent-green: #2e8b57;
+            --accent-blue:  #2980b9;
+            --text-dark:    #1a252f;
+            --text-muted:   #888;
+            --bg-page:      #f0f2f5;
+            --bg-card:      #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: var(--bg-page);
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Subtle pattern background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url('media/background/pattern.svg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hub {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 480px;
+            padding: 48px 20px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ── Header ──────────────────────────── */
+        .hub-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .hub-logo {
+            width: 84px;
+            height: 84px;
+            background: var(--bg-card);
+            border-radius: 50%;
+            border: 3px solid var(--accent-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+        }
+
+        .hub-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hub-logo-icon {
+            font-size: 2.2rem;
+            color: var(--accent-green);
+        }
+
+        .hub-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.3;
+        }
+
+        .hub-tagline {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* ── Sections ────────────────────────── */
+        .hub-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .hub-section-title {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--text-muted);
+            padding: 0 4px;
+            text-align: center;
+        }
+
+        /* ── Link Buttons ────────────────────── */
+        .hub-link {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px;
+            background: var(--bg-card);
+            border-radius: 14px;
+            text-decoration: none;
+            color: var(--text-dark);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .hub-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+        }
+
+        .hub-link-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .hub-link-label {
+            flex: 1;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .hub-link-chevron {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+<div class="hub">
+
+    <!-- Header (populated by JS) -->
+    <div class="hub-header">
+        <div class="hub-logo" id="hub-logo">
+            <span class="hub-logo-icon" id="hub-logo-icon"><i class="fa-solid fa-mosque"></i></span>
+        </div>
+        <div class="hub-name" id="hub-name"></div>
+        <div class="hub-tagline" id="hub-tagline"></div>
+    </div>
+
+    <!-- Links (populated by JS) -->
+    <div id="hub-links" style="width:100%;display:flex;flex-direction:column;gap:10px;"></div>
+
+</div>
+
+<script>
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // HUB DATA — edit only this block
+    const HUB = {
+        logo:    '',    // path or URL to logo image; leave empty for placeholder icon
+        name:    'Masjid Al-Mukhlisin',
+        tagline: 'Taman Jaya 6 (MAMTJ6)',
+        sections: [
+            {
+                title: 'Jawatankuasa Tertinggi Pengurusan MAMTJ6',
+                links: [
+                    { label: 'Pengerusi',            icon: 'fa-solid fa-user-tie',    url: 'contact/pengerusi.html' },
+                    { label: 'Bendahari',             icon: 'fa-solid fa-coins',        url: 'contact/bendahari.html' },
+                    { label: 'Penolong Setiausaha',   icon: 'fa-solid fa-file-pen',     url: 'contact/penolong-setiausaha.html' },
+                ],
+            },
+            {
+                title: 'Biro Pengurusan MAMTJ6',
+                links: [
+                    { label: 'Biro Ekonomi',          icon: 'fa-solid fa-chart-line',   url: 'contact/biro-ekonomi.html' },
+                    { label: 'Biro Keselamatan',       icon: 'fa-solid fa-shield-halved', url: 'contact/biro-keselamatan.html' },
+                    { label: 'Biro Pembangunan',       icon: 'fa-solid fa-building',     url: 'contact/biro-pembangunan.html' },
+                ],
+            },
+            {
+                title: 'Lain-lain',
+                links: [
+                    { label: 'Admin Mamtj6',          icon: 'fa-solid fa-id-card',      url: 'contact/admin.html' },
+                ],
+            },
+        ],
+    };
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    // Page title
+    document.title = HUB.name;
+
+    // Header
+    document.getElementById('hub-name').textContent    = HUB.name;
+    document.getElementById('hub-tagline').textContent = HUB.tagline;
+
+    if (HUB.logo) {
+        const logoEl = document.getElementById('hub-logo');
+        logoEl.innerHTML = `<img src="${HUB.logo}" alt="${HUB.name} logo">`;
+    }
+
+    // Render sections and link buttons
+    const container = document.getElementById('hub-links');
+    HUB.sections.forEach(section => {
+        const sectionEl = document.createElement('div');
+        sectionEl.className = 'hub-section';
+
+        const titleEl = document.createElement('div');
+        titleEl.className = 'hub-section-title';
+        titleEl.textContent = section.title;
+        sectionEl.appendChild(titleEl);
+
+        section.links.forEach(link => {
+            const a = document.createElement('a');
+            a.href = link.url;
+            a.className = 'hub-link';
+            a.innerHTML = `
+                <div class="hub-link-icon"><i class="${link.icon}"></i></div>
+                <div class="hub-link-label">${link.label}</div>
+                <div class="hub-link-chevron"><i class="fa-solid fa-chevron-right"></i></div>
+            `;
+            sectionEl.appendChild(a);
+        });
+
+        container.appendChild(sectionEl);
+    });
+</script>
+</body>
+</html>
